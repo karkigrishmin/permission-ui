@@ -92,9 +92,7 @@ export const Permission = () => {
 							<table
 								className={`${
 									activeAccordions.includes(eachModule.m_id) ? "show" : "hide"
-								}
-							
-									`}
+								} ${!editStatus ? "disabled-table" : ""}`}
 							>
 								<thead>
 									<tr>
@@ -128,7 +126,7 @@ export const Permission = () => {
 
 								<tbody>
 									{eachModule.columns.map((eachColumn) => (
-										<tr>
+										<tr className={!eachColumn.c_status ? "disabled-row" : ""}>
 											<td>
 												<div>
 													<input
