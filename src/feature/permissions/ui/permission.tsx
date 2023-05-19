@@ -1,14 +1,22 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 import { AiOutlineClose } from "react-icons/ai";
 import { FiChevronRight } from "react-icons/fi";
 import "./permission.css";
 import { useEffect, useState } from "react";
-import { IPermssionInfo, getPermissionData } from "..";
+import {
+	IModule,
+	IModuleColumnData,
+	IPermssionInfo,
+	getPermissionData,
+} from "..";
 
 export const Permission = () => {
 	const [activeAccordions, setActiveAccordions] = useState<number[]>([]);
 	const [permissionData, setPermissionData] = useState<IPermssionInfo | null>(
 		null
 	);
+	const [initialPermissionData, setInitialPermissionData] =
+		useState<IPermssionInfo | null>(null);
 	const [editStatus, setEditStatus] = useState(false);
 
 	const handleAccordionState = (moduleId: number) => {
@@ -27,13 +35,80 @@ export const Permission = () => {
 		}
 	};
 
-	console.log("active accordions", activeAccordions);
+	const updateColumnStatus = (
+		moduleId: number,
+		columnId: number,
+		newColumnStatus: boolean
+	) => {
+		const updatedModuleData: IModule[] =
+			permissionData?.modules?.map((eachModule) => {
+				return eachModule.m_id === moduleId
+					? {
+							...eachModule,
+							columns: eachModule.columns.map((eachColumn) => {
+								return eachColumn.c_id === columnId
+									? {
+											...eachColumn,
+											c_status: newColumnStatus,
+									  }
+									: eachColumn;
+							}) as IModuleColumnData[],
+					  }
+					: eachModule;
+			}) ?? [];
+
+		console.log("updatedModuleData", updatedModuleData);
+		setPermissionData({
+			modules: updatedModuleData,
+			name: permissionData?.name ?? "",
+		});
+	};
+
+	const updatePermissionStatus = (
+		moduleId: number,
+		columnId: number,
+		permissionName: string,
+		newPermissioinStatus: boolean
+	) => {
+		const updatedModuleData: IModule[] =
+			permissionData?.modules?.map((eachModule) => {
+				return eachModule.m_id === moduleId
+					? {
+							...eachModule,
+							columns: eachModule.columns.map((eachColumn) => {
+								return eachColumn.c_id === columnId
+									? {
+											...eachColumn,
+											c_permissions: eachColumn.c_permissions.map(
+												(eachPermission) => {
+													return eachPermission.p_name === permissionName
+														? {
+																...eachPermission,
+																p_status: newPermissioinStatus,
+														  }
+														: eachPermission;
+												}
+											),
+									  }
+									: eachColumn;
+							}) as IModuleColumnData[],
+					  }
+					: eachModule;
+			}) ?? [];
+
+		console.log("updatedModuleData", updatedModuleData);
+		setPermissionData({
+			modules: updatedModuleData,
+			name: permissionData?.name ?? "",
+		});
+	};
 
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
 				const data = await getPermissionData();
 				setPermissionData(data);
+				setInitialPermissionData(data);
 			} catch (error) {
 				console.log("fetchData error", error);
 			}
@@ -63,7 +138,8 @@ export const Permission = () => {
 							<div className='close-icon'>
 								<AiOutlineClose
 									onClick={() => {
-										setEditStatus(!editStatus);
+										setEditStatus(false);
+										setPermissionData(initialPermissionData);
 									}}
 								/>
 							</div>
@@ -144,6 +220,11 @@ export const Permission = () => {
 																"column id: ",
 																eachColumn.c_id
 															);
+															updateColumnStatus(
+																eachModule.m_id,
+																eachColumn.c_id,
+																!eachColumn.c_status
+															);
 														}}
 													></label>
 												</div>
@@ -159,7 +240,16 @@ export const Permission = () => {
 															className='myCheckboxClass'
 															checked={eachPermission.p_status}
 														/>
-														<label></label>
+														<label
+															onClick={() => {
+																updatePermissionStatus(
+																	eachModule.m_id,
+																	eachColumn.c_id,
+																	eachPermission.p_name,
+																	!eachPermission.p_status
+																);
+															}}
+														></label>
 													</div>
 												</td>
 											))}
