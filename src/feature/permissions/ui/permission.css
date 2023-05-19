@@ -292,3 +292,10 @@ tr th:first-child div {
 	border-width: 0 2px 2px 0;
 	transform: rotate(45deg);
 }
+
+.disabled-row,
+.disabled-table {
+	background-color: #f5f5f5;
+	opacity: 0.6;
+	pointer-events: none;
+}
