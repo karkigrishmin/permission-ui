@@ -1,0 +1,165 @@
+{
+	"name": "Grishmin",
+	"modules": [
+		{
+			"m_name": "Setting",
+			"m_id": 1,
+			"columns": [
+				{
+					"c_name": "organization",
+					"c_id": 12,
+					"c_status": true,
+					"c_permissions": [
+						{
+							"p_name": "view",
+							"p_status": true
+						},
+						{
+							"p_name": "edit",
+							"p_status": true
+						}
+					]
+				},
+
+				{
+					"c_name": "POS Setting",
+					"c_id": 13,
+					"c_status": true,
+					"c_permissions": [
+						{
+							"p_name": "view",
+							"p_status": true
+						},
+						{
+							"p_name": "edit",
+							"p_status": true
+						}
+					]
+				},
+
+				{
+					"c_name": "User and Permissions",
+					"c_id": 14,
+					"c_status": true,
+					"c_permissions": [
+						{
+							"p_name": "view",
+							"p_status": true
+						},
+						{
+							"p_name": "edit",
+							"p_status": true
+						}
+					]
+				}
+			]
+		},
+		{
+			"m_name": "POS General",
+			"m_id": 2,
+			"columns": [
+				{
+					"c_name": "organization",
+					"c_id": 12,
+					"c_status": true,
+					"c_permissions": [
+						{
+							"p_name": "view",
+							"p_status": true
+						},
+						{
+							"p_name": "edit",
+							"p_status": true
+						}
+					]
+				},
+
+				{
+					"c_name": "POS Setting",
+					"c_id": 13,
+					"c_status": true,
+					"c_permissions": [
+						{
+							"p_name": "view",
+							"p_status": true
+						},
+						{
+							"p_name": "edit",
+							"p_status": true
+						}
+					]
+				},
+
+				{
+					"c_name": "User and Permissions",
+					"c_id": 14,
+					"c_status": true,
+					"c_permissions": [
+						{
+							"p_name": "view",
+							"p_status": true
+						},
+						{
+							"p_name": "edit",
+							"p_status": true
+						}
+					]
+				}
+			]
+		},
+
+		{
+			"m_name": "Reports",
+			"m_id": 3,
+			"columns": [
+				{
+					"c_name": "organization",
+					"c_id": 12,
+					"c_status": true,
+					"c_permissions": [
+						{
+							"p_name": "view",
+							"p_status": true
+						},
+						{
+							"p_name": "edit",
+							"p_status": true
+						}
+					]
+				},
+
+				{
+					"c_name": "POS Setting",
+					"c_id": 13,
+					"c_status": true,
+					"c_permissions": [
+						{
+							"p_name": "view",
+							"p_status": true
+						},
+						{
+							"p_name": "edit",
+							"p_status": true
+						}
+					]
+				},
+
+				{
+					"c_name": "User and Permissions",
+					"c_id": 14,
+					"c_status": true,
+					"c_permissions": [
+						{
+							"p_name": "view",
+							"p_status": true
+						},
+						{
+							"p_name": "edit",
+							"p_status": true
+						}
+					]
+				}
+			]
+		}
+	]
+}
