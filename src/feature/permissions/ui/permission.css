@@ -293,8 +293,13 @@ tr th:first-child div {
 	transform: rotate(45deg);
 }
 
-.disabled-row,
 .disabled-table {
+	background-color: #f5f5f5;
+	opacity: 0.6;
+	pointer-events: none;
+}
+
+.disabled-row td:nth-child(n + 2) {
 	background-color: #f5f5f5;
 	opacity: 0.6;
 	pointer-events: none;
