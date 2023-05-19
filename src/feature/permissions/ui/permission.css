@@ -6,6 +6,8 @@
 	width: 904px;
 	margin: 0 auto;
 	background-color: #fff;
+	max-height: 80vh;
+	overflow-y: auto;
 }
 
 .permission-header {
@@ -83,8 +85,8 @@
 	align-items: flex-start;
 	padding: 20px;
 	gap: 32px;
-	max-height: 60vh;
-	overflow-y: auto;
+	/* max-height: 60vh;
+	overflow-y: auto; */
 
 	/* width: 904px;
 height: 524px; */
@@ -160,7 +162,7 @@ height: 524px; */
 	height: 20px;
 }
 
-table {
+table.show {
 	display: flex;
 	flex-direction: column;
 	/* align-items: flex-start; */
@@ -274,7 +276,6 @@ tr th:first-child div {
 }
 
 .myCheckboxClass:checked + label::before {
-	/* content: "\2713"; */
 	color: #fff;
 	width: 20px;
 	height: 20px;
@@ -285,9 +286,6 @@ tr th:first-child div {
 .myCheckboxClass:checked + label::after {
 	content: "";
 	position: absolute;
-	/* left: 5px;
-	top: 50%;
-	transform: translate(0, -50%); */
 	width: 6px;
 	height: 12px;
 	border: solid #fff;
