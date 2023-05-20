@@ -13,8 +13,8 @@ To run this project locally, please follow these steps:
 
 The Tigg-POS project utilizes the following technologies:
 
-- React: A JavaScript library for building user interfaces.
-- Vite: A fast development build tool for modern web applications.
-- TypeScript: A statically-typed superset of JavaScript that compiles to plain JavaScript.
-- Vanilla CSS: Traditional CSS without any CSS frameworks or preprocessors.
-- Vitest: A lightweight testing library for testing React components.
+- React
+- Vite
+- TypeScript
+- Vanilla CSS
+- Vitest
