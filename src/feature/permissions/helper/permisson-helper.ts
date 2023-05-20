@@ -65,24 +65,10 @@ export const performPermissionStatusUpdate = (
 		}
 	);
 
-	console.log(
-		"performPermissionStatusUpdat()-updatedModuleData",
-		updatedModuleData
-	);
-
 	return {
 		...permissionData,
 		modules: updatedModuleData,
 	};
-};
-
-export const areAllColumnStatusTrue = (
-	updatedModuleData: IModule[],
-	moduleId: number
-) => {
-	return updatedModuleData
-		.find((eachUpdatedModuleData) => eachUpdatedModuleData.m_id === moduleId)
-		?.columns.every((eachColumn) => eachColumn.c_status === true);
 };
 
 export const updateColumnStatus = (
@@ -122,21 +108,6 @@ export const performColumnStatusUpdate = (
 		}
 	);
 
-	console.log(
-		"performColumnStatusUpdate()-updatedModuleData",
-		updatedModuleData
-	);
-
-	// const allColumnStatusTrue = areAllColumnStatusTrue(
-	// 	updatedModuleData,
-	// 	moduleId
-	// );
-
-	// if (allColumnStatusTrue) {
-	// 	console.log("areAllColumnStatusTrue", allColumnStatusTrue);
-	// 	updateAllColumnStatus(moduleId, allColumnStatusTrue);
-	// }
-
 	return {
 		...permissionData,
 		modules: updatedModuleData,
@@ -173,13 +144,45 @@ export const performAllColumnStatusUpdate = (
 		}
 	);
 
-	console.log(
-		"performAllColumnStatusUpdate()-updatedModuleData",
-		updatedModuleData
-	);
-
 	return {
 		...permissionData,
+		modules: updatedModuleData,
+	};
+};
+
+export const areAllColumnStatusTrue = (
+	updatedModuleData: IModule[],
+	moduleId: number
+) => {
+	return (
+		updatedModuleData
+			.find((eachUpdatedModuleData) => eachUpdatedModuleData.m_id === moduleId)
+			?.columns.every((eachColumn) => eachColumn.c_status === true) ?? false
+	);
+};
+
+export const updateModuleStatus = (
+	moduleId: number,
+	updatedColumnStatusPermissionData: IPermssionInfo
+): IPermssionInfo => {
+	const allColumnStatusTrue = areAllColumnStatusTrue(
+		updatedColumnStatusPermissionData.modules,
+		moduleId
+	);
+
+	const updatedModuleData: IModule[] =
+		updatedColumnStatusPermissionData.modules.map((eachModule) => {
+			if (eachModule.m_id === moduleId) {
+				return {
+					...eachModule,
+					m_status: allColumnStatusTrue,
+				};
+			}
+			return eachModule;
+		});
+
+	return {
+		...updatedColumnStatusPermissionData,
 		modules: updatedModuleData,
 	};
 };

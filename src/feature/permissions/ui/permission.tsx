@@ -6,6 +6,7 @@ import {
 	performAllColumnStatusUpdate,
 	performColumnStatusUpdate,
 	performPermissionStatusUpdate,
+	updateModuleStatus,
 } from "../helper";
 import { Table } from "./components";
 import { Accordion } from "../../../shared";
@@ -68,8 +69,6 @@ export const Permission = () => {
 						<button
 							onClick={() => {
 								if (editStatus) {
-									console.log("save");
-
 									localStorage.setItem(
 										"permissionInfo",
 										JSON.stringify(permissionData)
@@ -112,16 +111,18 @@ export const Permission = () => {
 										)
 									)
 								}
-								performColumnStatusUpdate={({ c_id, c_status }) =>
+								performColumnStatusUpdate={async ({ c_id, c_status }) => {
+									const updatedColumnStatusData = performColumnStatusUpdate(
+										eachModule.m_id,
+										c_id,
+										!c_status,
+										permissionData
+									);
+									setPermissionData(updatedColumnStatusData);
 									setPermissionData(
-										performColumnStatusUpdate(
-											eachModule.m_id,
-											c_id,
-											!c_status,
-											permissionData
-										)
-									)
-								}
+										updateModuleStatus(eachModule.m_id, updatedColumnStatusData)
+									);
+								}}
 								performPermissionStatusUpdate={(eachColumn, eachPermission) => {
 									setPermissionData(
 										performPermissionStatusUpdate(
