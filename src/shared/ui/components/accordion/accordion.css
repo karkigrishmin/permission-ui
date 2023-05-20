@@ -1,0 +1,60 @@
+.accordion {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	padding: 0px 0px 24px;
+	width: 100%;
+	/* max-height: 274px; */
+	border-bottom: 1px solid #e0e5eb;
+}
+
+.accordion__title {
+	padding: 16px 0px;
+	width: 100%;
+	/* cursor: pointer; */
+	/* height: 70px; */
+	/* background-color: #f5f5f5; */
+}
+
+.accordion__title div {
+	cursor: pointer;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	gap: 10px;
+}
+
+.accordion__title p {
+	/* font-weight: 600; */
+	font-weight: 500;
+	font-size: 16px;
+	line-height: 24px;
+	color: #343c46;
+}
+
+.accordion__title.selected p {
+	font-weight: 600;
+}
+
+.accordion__title.selected .chevron-icon svg {
+	transform: rotate(90deg);
+}
+
+.accordion__title .chevron-icon {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	padding: 8px 12px;
+	gap: 4px;
+	/* width: 38px;
+	height: 38px; */
+	border-radius: 4px;
+}
+
+.chevron-icon svg {
+	color: #343c46;
+	width: 20px;
+	height: 20px;
+}
