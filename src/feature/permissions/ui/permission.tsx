@@ -7,6 +7,7 @@ import {
 	IModule,
 	IModuleColumnData,
 	IPermssionInfo,
+	IUser,
 	getPermissionData,
 } from "..";
 
@@ -35,6 +36,15 @@ export const Permission = () => {
 		}
 	};
 
+	const areAllColumnStatusTrue = (
+		updatedModuleData: IModule[],
+		moduleId: number
+	) => {
+		return updatedModuleData
+			.find((eachUpdatedModuleData) => eachUpdatedModuleData.m_id === moduleId)
+			?.columns.every((eachColumn) => eachColumn.c_status === true);
+	};
+
 	const updateColumnStatus = (
 		moduleId: number,
 		columnId: number,
@@ -45,6 +55,9 @@ export const Permission = () => {
 				return eachModule.m_id === moduleId
 					? {
 							...eachModule,
+							m_status: eachModule.m_status
+								? newColumnStatus
+								: eachModule.m_status,
 							columns: eachModule.columns.map((eachColumn) => {
 								return eachColumn.c_id === columnId
 									? {
@@ -57,10 +70,48 @@ export const Permission = () => {
 					: eachModule;
 			}) ?? [];
 
+		const allColumnStatusTrue = areAllColumnStatusTrue(
+			updatedModuleData,
+			moduleId
+		);
+
 		console.log("updatedModuleData", updatedModuleData);
 		setPermissionData({
 			modules: updatedModuleData,
-			name: permissionData?.name ?? "",
+			user: permissionData?.user as IUser,
+		});
+
+		if (allColumnStatusTrue) {
+			console.log("areAllColumnStatusTrue", allColumnStatusTrue);
+			updateAllColumnStatus(moduleId, allColumnStatusTrue);
+		}
+	};
+
+	const updateAllColumnStatus = (
+		moduleId: number,
+		newModuleStatus: boolean
+	) => {
+		console.log("updateAllColumnStatus");
+		const updatedModuleData: IModule[] =
+			permissionData?.modules?.map((eachModule) => {
+				return eachModule.m_id === moduleId
+					? {
+							...eachModule,
+							m_status: newModuleStatus,
+							columns: eachModule.columns.map((eachColumn) => {
+								return {
+									...eachColumn,
+									c_status: newModuleStatus,
+								};
+							}) as IModuleColumnData[],
+					  }
+					: eachModule;
+			}) ?? [];
+
+		console.log("updatedModuleData", updatedModuleData);
+		setPermissionData({
+			modules: updatedModuleData,
+			user: permissionData?.user as IUser,
 		});
 	};
 
@@ -98,8 +149,8 @@ export const Permission = () => {
 
 		console.log("updatedModuleData", updatedModuleData);
 		setPermissionData({
+			user: permissionData?.user as IUser,
 			modules: updatedModuleData,
-			name: permissionData?.name ?? "",
 		});
 	};
 
@@ -114,7 +165,14 @@ export const Permission = () => {
 			}
 		};
 
-		fetchData();
+		const storedPermissionDataJson = localStorage.getItem("permissionInfo");
+		if (storedPermissionDataJson) {
+			const permissionData = JSON.parse(storedPermissionDataJson);
+			setPermissionData(permissionData);
+			setInitialPermissionData(permissionData);
+		} else {
+			fetchData();
+		}
 	}, []);
 
 	return (
@@ -122,13 +180,41 @@ export const Permission = () => {
 			<div className='permission-header'>
 				<div className='permission-header__left-item'>
 					<p>{editStatus ? "Edit Permission" : "Permission"}</p>
-					{editStatus && <p>({permissionData?.name ?? ""})</p>}
+					{editStatus && <p>({permissionData?.user?.name ?? ""})</p>}
 				</div>
 
 				<div className='permission-header__right-item'>
 					<div className='permission-actions'>
 						<button
 							onClick={() => {
+								if (editStatus) {
+									console.log("save");
+
+									localStorage.setItem(
+										"permissionInfo",
+										JSON.stringify(permissionData)
+									);
+									// setInitialPermissionData(permissionData);
+									// fetch("http://localhost:3000/modules", {
+									// 	method: "PUT",
+									// 	headers: {
+									// 		"Content-Type": "application/json",
+									// 	},
+									// 	body: JSON.stringify({
+									// 		modules: [
+									// 			{ name: "newTestttttttt", id: 1 },
+									// 			{ name: "testing", id: 2 },
+									// 		],
+									// 	}),
+									// })
+									// 	.then((response) => response.json())
+									// 	.then((data) => {
+									// 		console.log("Response:", data);
+									// 	})
+									// 	.catch((error) => {
+									// 		console.error("Error:", error);
+									// 	});
+								}
 								setEditStatus(!editStatus);
 							}}
 						>
@@ -176,14 +262,18 @@ export const Permission = () => {
 											<div>
 												<input
 													type='checkbox'
-													name='settingPermission'
-													id='settingPermission'
+													name={eachModule.m_name}
+													id={eachModule.m_id.toString()}
 													className='myCheckboxClass'
+													checked={eachModule.m_status}
 												/>
 												<label
-													onClick={() =>
-														console.log("checkbox setting permissionS")
-													}
+													onClick={() => {
+														updateAllColumnStatus(
+															eachModule.m_id,
+															!eachModule.m_status
+														);
+													}}
 												></label>
 											</div>
 										</th>
