@@ -1,12 +1,17 @@
 export interface IPermssionInfo {
-	name: string;
+	user: IUser;
 	modules: IModule[];
+}
+
+export interface IUser {
+	name: string;
 }
 
 export interface IModule {
 	m_name: string;
 	m_id: number;
 	columns: IModuleColumnData[];
+	m_status: boolean;
 }
 
 export interface IModuleColumnData {
