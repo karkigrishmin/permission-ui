@@ -17,7 +17,7 @@ export interface IModule {
 export interface IModuleColumnData {
 	c_name: string;
 	c_id: number;
-	c_status: true;
+	c_status: boolean;
 	c_permissions: IPermission[];
 }
 
