@@ -1,9 +1,12 @@
 {
-	"name": "Grishmin",
+	"user": {
+		"name": "Grishmin"
+	},
 	"modules": [
 		{
 			"m_name": "Setting",
 			"m_id": 1,
+			"m_status": false,
 			"columns": [
 				{
 					"c_name": "organization",
@@ -20,7 +23,6 @@
 						}
 					]
 				},
-
 				{
 					"c_name": "POS Setting",
 					"c_id": 13,
@@ -36,7 +38,6 @@
 						}
 					]
 				},
-
 				{
 					"c_name": "User and Permissions",
 					"c_id": 14,
@@ -57,6 +58,7 @@
 		{
 			"m_name": "POS General",
 			"m_id": 2,
+			"m_status": false,
 			"columns": [
 				{
 					"c_name": "organization",
@@ -73,7 +75,6 @@
 						}
 					]
 				},
-
 				{
 					"c_name": "POS Setting",
 					"c_id": 13,
@@ -89,7 +90,6 @@
 						}
 					]
 				},
-
 				{
 					"c_name": "User and Permissions",
 					"c_id": 14,
@@ -107,10 +107,10 @@
 				}
 			]
 		},
-
 		{
 			"m_name": "Reports",
 			"m_id": 3,
+			"m_status": true,
 			"columns": [
 				{
 					"c_name": "organization",
@@ -127,7 +127,6 @@
 						}
 					]
 				},
-
 				{
 					"c_name": "POS Setting",
 					"c_id": 13,
@@ -143,7 +142,6 @@
 						}
 					]
 				},
-
 				{
 					"c_name": "User and Permissions",
 					"c_id": 14,
