@@ -1,4 +1,4 @@
-# Tigg-POS
+# Permission-UI
 
 ## Getting Started
 
@@ -10,9 +10,6 @@ To run this project locally, please follow these steps:
 4. Run pnpm dev to start the development server.
 
 ## Tech Stack
-
-The Tigg-POS project utilizes the following technologies:
-
 - React
 - Vite
 - TypeScript
